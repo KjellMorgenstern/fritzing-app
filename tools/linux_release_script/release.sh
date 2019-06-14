@@ -115,11 +115,14 @@ chmod +x Fritzing
 
 cd ${current_dir}
 
-if [[ ${relname} != *"debug"* ]]; then
+if [[ ${relname} != *"debug"* || ${relname} == *"continuous"* ]]; then
   echo "compressing...."
   tar -cjf  ./${release_name}.tar.bz2 ${release_name}
+  pwd
+  echo ./${release_name}.tar.bz2 ${release_name}
+  ls
 
-  echo "cleaning up"
+  echo "cleaning up ${release_folder}"
   rm -rf ${release_folder}
 fi
 
