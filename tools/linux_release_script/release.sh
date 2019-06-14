@@ -115,7 +115,7 @@ chmod +x Fritzing
 
 cd ${current_dir}
 
-if [[ ${relname} != *"debug"* ]]; then
+if [[ ${relname} != *"debug"* || ${relname} == *"continuous"* ]]; then
   echo "compressing...."
   tar -cjf  ./${release_name}.tar.bz2 ${release_name}
 
