@@ -1,16 +1,17 @@
 #!/bin/bash
 set -euE -o functrace
 failure() {
+  local err=$?
   local lineno=$1
   local msg=$2
   echo "Failed at $lineno: $msg"
-  exit
+  exit $err
 }
 trap 'failure ${LINENO} "$BASH_COMMAND"' ERR
 
 if [ -z "${1:-}" ] ; then
   echo "Usage: $0 <need a version string such as '0.6.4b' (without the quotes)>"
-  exit
+  exit -1
 else
   relname=$1  #`date +%Y.%m.%d`
 fi
