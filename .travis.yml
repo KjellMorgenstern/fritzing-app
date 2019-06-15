@@ -1,3 +1,5 @@
+langauge: minimal
+
 env:
   global:
     # include $HOME/.local/bin for `aws`
@@ -8,10 +10,7 @@ env:
 
 before_install:
   - ./aws_configure.sh
-  # set up awscli packages
-  - pip install --user awscli
-  - mkdir -p ~/$TRAVIS_BUILD_NUMBER
-  - aws s3 sync s3://fritzing/$TRAVIS_BUILD_NUMBER ~/$TRAVIS_BUILD_NUMBER
+    if: not fork
 
 jobs:
   include:
@@ -24,6 +23,8 @@ jobs:
         - cat ~/$TRAVIS_BUILD_NUMBER/*
       after_success:
         - aws s3 rm --recursive s3://fritzing/$TRAVIS_BUILD_NUMBER # clean up after ourselves
+        if: not fork
 
 after_success:
   - aws s3 sync ~/$TRAVIS_BUILD_NUMBER s3://fritzing/$TRAVIS_BUILD_NUMBER
+    if: not fork
