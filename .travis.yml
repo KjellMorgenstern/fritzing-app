@@ -16,10 +16,10 @@ env:
 
 jobs:
   include:
-    - stage: fast_check
-      language: shell
-      script:
-        - bash -c 'shopt -s globstar; shellcheck **/*.{sh,ksh,bash}'
+    # - stage: fast_check
+    #   language: shell
+    #   script:
+    #     - bash -c 'shopt -s globstar; shellcheck **/*.{sh,ksh,bash}'
 
     - stage: build_and_pack
       os: linux
@@ -107,8 +107,11 @@ jobs:
     #       # - tools/release_fritzing.bat 0.9.4b 64 2017
     #       # - export PATH="$NMAKE_PATH:$RC_PATH:$PATH"
 
+    - stage: deploy_to_github
+      before_install:
+        - mkdir -p ~/$TRAVIS_BUILD_NUMBER
+        - ./tools/aws_tasks.sh setup
 
-    - stage: deploy_to_github      
       deploy:
         provider: releases
         api_key:
@@ -118,11 +121,6 @@ jobs:
           repo: KjellMorgenstern/fritzing-app
         skip_cleanup: true
 
-      before_install:
-        - mkdir -p ~/$TRAVIS_BUILD_NUMBER
-        - ./tools/aws_tasks.sh setup
-      script:
-        - cat ~/$TRAVIS_BUILD_NUMBER/*
       after_success:
         - ./tools/aws_tasks.sh cleanup
 
