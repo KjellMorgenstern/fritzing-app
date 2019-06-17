@@ -19,7 +19,7 @@ jobs:
     # - stage: fast_check
     #   language: shell
     #   script:
-    #     - bash -c 'shopt -s globstar; shellcheck **/*.{sh,ksh,bash}'
+    #     - bash -c 'shopt -s globstar; shellcheck -e SC1117 **/*.{sh,ksh,bash}'
 
     - stage: build_and_pack
       os: linux
@@ -119,6 +119,7 @@ jobs:
         file: ~/$TRAVIS_BUILD_NUMBER/*
         on:
           repo: KjellMorgenstern/fritzing-app
+          branch: develop
         skip_cleanup: true
 
       after_success:
