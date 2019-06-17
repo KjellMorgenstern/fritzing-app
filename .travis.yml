@@ -3,7 +3,7 @@ langauge: minimal
 stages:
   - name: build_and_pack
   - name: deploy_to_github
-    if: TRAVIS_PULL_REQUEST = false AND branch = develop
+    if: env(TRAVIS_PULL_REQUEST) = false
     
 env:
   global:
