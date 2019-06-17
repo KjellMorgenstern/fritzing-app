@@ -26,6 +26,10 @@ function cleanup {
     aws s3 rm --recursive s3://fritzing/"$TRAVIS_BUILD_NUMBER" # clean up after ourselves
 }
 
-if [[ ( "$TRAVIS_PULL_REQUEST" == false ) && ( "$TRAVIS_BRANCH" = "develop" ) ]]; then
+echo "$TRAVIS_PULL_REQUEST"
+echo "$TRAVIS_BRANCH"
+echo "$FORK"
+
+if [[ ( "$TRAVIS_PULL_REQUEST" == false ) && ( "$TRAVIS_BRANCH" = "develop" ) && ( "$FORK" == false )]]; then
     $1;
 fi
