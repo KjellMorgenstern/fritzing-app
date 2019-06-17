@@ -28,8 +28,9 @@ function cleanup {
 
 echo "$TRAVIS_PULL_REQUEST"
 echo "$TRAVIS_BRANCH"
-echo "$FORK"
+echo "$TRAVIS_REPO_SLUG"
 
-if [[ ( "$TRAVIS_PULL_REQUEST" == false ) && ( "$TRAVIS_BRANCH" = "develop" ) && ( "$FORK" == false )]]; then
+if [[ ( "$TRAVIS_PULL_REQUEST" == false ) && ( "$TRAVIS_BRANCH" == "develop" ) && ( "$TRAVIS_REPO_SLUG" == "KjellMorgenstern/fritzing-app" )]]; then
+    echo "HELLO"
     $1;
 fi

@@ -3,8 +3,8 @@ langauge: minimal
 stages:
   - name: build_and_pack
   - name: deploy_to_github
-    if: TRAVIS_PULL_REQUEST == false AND branch = develop AND NOT fork
-
+    if: TRAVIS_PULL_REQUEST = false AND branch = develop
+    
 env:
   global:
     # include $HOME/.local/bin for `aws`
