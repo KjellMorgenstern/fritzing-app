@@ -3,7 +3,7 @@ langauge: minimal
 stages:
   - name: build_and_pack
   - name: deploy_to_github
-    if: env(TRAVIS_PULL_REQUEST) = false
+    if: type = push AND branch IN (develop, master)
     
 env:
   global:
@@ -19,10 +19,10 @@ before_install:
 
 jobs:
   include:
-    - stage: setup files
+    - stage: build_and_pack
       script: echo one | tee > ~/$TRAVIS_BUILD_NUMBER/one
 
-    - stage: setup files
+    - stage: build_and_pack
       script: echo two | tee > ~/$TRAVIS_BUILD_NUMBER/two
 
     - stage: deploy_to_github
