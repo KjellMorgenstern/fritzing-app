@@ -79,4 +79,4 @@ jobs:
 
 
 after_success:
-  - ./tools/aws_tasks.sh synchronize
+  - ./tools/aws_tasks.sh synchronize_up
