@@ -3,7 +3,8 @@ language: shell
 stages:
   - name: build_and_pack
   - name: deploy_to_github
-    if: TRAVIS_PULL_REQUEST == false  # AND branch = develop
+    # if: TRAVIS_PULL_REQUEST == false
+    # AND branch = develop
 
 env:
   global:
@@ -34,23 +35,26 @@ jobs:
         - echo two | tee > ~/$TRAVIS_BUILD_NUMBER/macos.txt
         - which python
 
-    - stage: build_and_pack
-      os: windows
-      before_install:
-        - mkdir -p "$HOME/$TRAVIS_BUILD_NUMBER"
-        - ./tools/aws_tasks.sh setup
-        - ./tools/aws_tasks.sh synchronize_down
-      script:
-        - print "Hello" >> "$HOME/$TRAVIS_BUILD_NUMBER"/windows.txt
+      # - stage: build_and_pack
+      #   os: windows
+      #   before_install:
+      #     - mkdir -p "$HOME/$TRAVIS_BUILD_NUMBER"
+      #     - ./tools/aws_tasks.sh setup
+      #     - ./tools/aws_tasks.sh synchronize_down
+      #   script:
+      #     - print "Hello" >> "$HOME/$TRAVIS_BUILD_NUMBER"/windows.txt
 
-      after_success:
-        - aws s3 sync "$HOME/$TRAVIS_BUILD_NUMBER" s3://fritzing/"$TRAVIS_BUILD_NUMBER"
+      #   after_success:
+      #     - aws s3 sync "$HOME/$TRAVIS_BUILD_NUMBER" s3://fritzing/"$TRAVIS_BUILD_NUMBER"
 
     - stage: deploy_to_github
 
       before_install:
         - mkdir -p "$HOME/$TRAVIS_BUILD_NUMBER"
         - ./tools/aws_tasks.sh setup
+
+      script:
+        - echo "HELLO?"
 
       before_deploy:
         - git config --local user.name "Travis C.D."
