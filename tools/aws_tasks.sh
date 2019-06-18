@@ -9,11 +9,11 @@ function setup {
 }
 
 function synchronize_down {
-    aws s3 sync s3://fritzing/"$TRAVIS_BUILD_NUMBER" ~/"$TRAVIS_BUILD_NUMBER"
+    aws s3 sync s3://fritzing/"$TRAVIS_BUILD_NUMBER" "$HOME/$TRAVIS_BUILD_NUMBER"
 }
 
 function synchronize_up {
-    aws s3 sync ~/"$TRAVIS_BUILD_NUMBER" s3://fritzing/"$TRAVIS_BUILD_NUMBER"
+    aws s3 sync "$HOME/$TRAVIS_BUILD_NUMBER" s3://fritzing/"$TRAVIS_BUILD_NUMBER"
 }
 
 function cleanup {
