@@ -55,11 +55,13 @@ jobs:
         - mkdir -p "$HOME/$TRAVIS_BUILD_NUMBER"
         - ./tools/aws_tasks.sh setup
       script:
+        - ls /usr/local/opt
         - tools/deploy_fritzing_mac.sh
         - cp ../deploy-app/Fritzing.dmg $HOME/$TRAVIS_BUILD_NUMBER/fritzing-"$TRAVIS_COMMIT"-debug-continuous-$TRAVIS_BUILD_NUMBER.10.2.dmg
 
-    - os: osx
-      language: objective-c
+    - stage: build_and_pack
+      os: osx
+      language: cpp
       osx_image: xcode10.1
       cache:
         directories:
@@ -68,7 +70,8 @@ jobs:
       addons:
         homebrew:
           packages:
-            - qt5
+          - qt5
+          update: true
 
       before_install:
         - mkdir -p ../libgit2/build
@@ -80,6 +83,7 @@ jobs:
         - ./tools/aws_tasks.sh setup
 
       script:
+        - ls /usr/local/opt
         - tools/deploy_fritzing_mac.sh
         - cp ../deploy-app/Fritzing.dmg $HOME/$TRAVIS_BUILD_NUMBER/fritzing-"$TRAVIS_COMMIT"-debug-continuous-$TRAVIS_BUILD_NUMBER.10.1.dmg
 
