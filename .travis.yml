@@ -52,6 +52,7 @@ jobs:
       before_install:
         - mkdir -p "$HOME/$TRAVIS_BUILD_NUMBER"
         - ./tools/aws_tasks.sh setup
+        - ./tools/aws_tasks.sh synchronize_down
 
       script:
         - echo "HELLO?"
@@ -79,4 +80,4 @@ jobs:
 
 
 after_success:
-  - ./tools/aws_tasks.sh synchronize
+  - ./tools/aws_tasks.sh synchronize_up
